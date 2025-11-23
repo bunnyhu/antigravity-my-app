@@ -1,16 +1,85 @@
-# React + Vite
+# React + PHP User Management Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ez egy demonstrációs alkalmazás, amely bemutatja egy modern full-stack webalkalmazás működését React frontenddel és natív PHP backenddel. A projekt célja a biztonságos kommunikáció és a felhasználókezelés demonstrálása.
 
-Currently, two official plugins are available:
+## 🛠 Fejlesztés Menete és Technológiák
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A projekt során a következő technológiákat és megoldásokat alkalmaztuk:
 
-## React Compiler
+### Frontend
+- **React (Vite)**: A gyors és modern felhasználói felületért.
+- **Axios Interceptors**: A kommunikáció automatikus titkosítására és hitelesítésére. Minden kérés és válasz JWT payload-ba van csomagolva.
+- **Web Crypto API**: A böngésző natív kriptográfiai funkcióinak használata a JWT aláírására és ellenőrzésére külső könyvtárak nélkül.
+- **Tailwind-szerű CSS**: Egyedi CSS változók és utility osztályok a modern megjelenésért.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Backend
+- **Natív PHP**: Keretrendszer nélküli, tiszta PHP implementáció a működés mélyebb megértéséhez.
+- **PDO**: Biztonságos adatbázis-kezelés MySQL-hez.
+- **Custom JWT Implementation**: Saját JWT kezelő osztály (`JWTUtils`) a tokenek generálására, validálására, valamint az adatcsomagok kódolására/dekódolására.
+- **Környezeti Változók**: `.env` fájlok használata a konfiguráció (adatbázis, titkos kulcsok) kezelésére.
 
-## Expanding the ESLint configuration
+### Biztonsági Funkciók
+- **Teljes JWT Kommunikáció**: Nem csak a hitelesítés, hanem minden adatcsere (request body és response body) JWT-be van csomagolva és aláírva, így biztosítva az adatok integritását.
+- **Shared Secret**: A frontend és backend egy közös titkos kulcsot használ az üzenetek aláírására (demonstrációs célból).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Telepítés
+
+### Előfeltételek
+- Node.js és npm
+- PHP
+- MySQL szerver
+
+### 1. Adatbázis Beállítása
+1. Hozz létre egy `react_php_auth` nevű adatbázist a MySQL szervereden.
+2. Importáld a `backend/migrations.sql` fájlt az adatbázisba. Ez létrehozza a táblákat és feltölti tesztadatokkal.
+
+### 2. Backend Beállítása
+1. Lépj a `backend` mappába.
+2. Hozz létre egy `.env` fájlt a következő tartalommal (módosítsd az adatokat a saját rendszerednek megfelelően):
+   ```env
+   DB_HOST=localhost
+   DB_NAME=react_php_auth
+   DB_USER=root
+   DB_PASS=root
+   JWT_SECRET=SECRET1234567890
+   ```
+3. Indítsd el a PHP szervert:
+   ```bash
+   php -S localhost:8000
+   ```
+
+### 3. Frontend Beállítása
+1. Lépj a gyökérkönyvtárba (`my-app`).
+2. Hozz létre egy `.env` fájlt:
+   ```env
+   VITE_JWT_SECRET=SECRET1234567890
+   ```
+3. Telepítsd a függőségeket:
+   ```bash
+   npm install
+   ```
+4. Indítsd el a fejlesztői szervert:
+   ```bash
+   npm run dev
+   ```
+
+## 🖥 Használat
+
+Nyisd meg a böngészőben a frontend által kiírt URL-t (általában `http://localhost:5173`).
+
+### Funkciók
+- **Bejelentkezés**: JWT alapú hitelesítés.
+- **Regisztráció**: Új felhasználók létrehozása.
+- **Admin Felület**: Felhasználók listázása, törlése és szerepkörök módosítása (csak adminoknak).
+
+## 🧪 Teszt Adatok
+
+A rendszer előre feltöltött felhasználókkal érkezik a teszteléshez. A jelszó minden esetben: `password`
+
+| Email | Szerepkör | Jelszó |
+|-------|-----------|--------|
+| `admin@example.com` | **Admin** (teljes hozzáférés) | `password` |
+| `manager@example.com` | **Manager** | `password` |
+| `user@example.com` | **User** (korlátozott hozzáférés) | `password` |
+
+> **Megjegyzés**: A kommunikáció ellenőrzéséhez nyisd meg a böngésző fejlesztői eszközeit (F12) és figyeld a Network fület. Látni fogod, hogy a kérések és válaszok tartalma JWT tokenekbe van csomagolva (`payload` mező).
