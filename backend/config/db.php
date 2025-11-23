@@ -1,4 +1,6 @@
 <?php
+include_once 'env_loader.php';
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -10,11 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 class Database
 {
-    private $host = "localhost";
-    private $db_name = "react_php_auth";
-    private $username = "root";
-    private $password = "root";
+    private $host;
+    private $db_name;
+    private $username;
+    private $password;
     public $conn;
+
+    public function __construct()
+    {
+        $this->host = getenv('DB_HOST') ?: 'localhost';
+        $this->db_name = getenv('DB_NAME') ?: 'react_php_auth';
+        $this->username = getenv('DB_USER') ?: 'root';
+        $this->password = getenv('DB_PASS') ?: 'root';
+    }
 
     public function getConnection()
     {
@@ -24,10 +34,6 @@ class Database
             $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
             $this->conn->exec("set names utf8");
         } catch (PDOException $exception) {
-            // Fallback for testing without creating DB manually if possible, or just error out
-            // For this demo, we assume the DB exists.
-            // If connection fails, we might try to connect without dbname to create it?
-            // Let's keep it simple.
             echo "Connection error: " . $exception->getMessage();
         }
 

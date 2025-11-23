@@ -1,5 +1,6 @@
 
-const SECRET_KEY = "SECRET1234567890"; // Must match backend
+
+const SECRET_KEY = import.meta.env.VITE_JWT_SECRET || "SECRET1234567890"; // Fallback for safety, but env should be used
 
 async function importKey(secret) {
     const enc = new TextEncoder();
