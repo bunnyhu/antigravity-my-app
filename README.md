@@ -1,10 +1,6 @@
 # Előszó - ez még embertől
 
-*Ez a kód nem tartalmaz semmilyen emberi fejlesztési elemet, beleértve ez a README.md fájlt is és a GIT commitok leírását is, de még ennek a bekezdésnek a tartalmát is néha az AI javasolta.
-
-A project célja a Google új Antigravity környezetének és a Gemini 3 Pro model tesztelése. A forráskód dokumentálására elfogyott a Gemini kredit, így azt Sonnet 4.5 thinking model segítségével készítettem. Ezekhez csak promptot írtam méghozzá magyarul, és teszteltem - de a tesztelést is az AI írta le, mit csináljak. Ha valami nem tetszett leírtam emberi mondatokkal, ha hibát kaptam csak bemásoltam.
-
-4 forduló után a kód hibátlanul futott. Itt tartunk most 2025 év végén. Innentől pedig minden betű AI generált.*
+*Ez a kód nem tartalmaz semmilyen emberi fejlesztési elemet, beleértve ez a README.md fájlt is és a GIT commitok leírását is, de még ennek a bekezdésnek a tartalmát is néha az AI javasolta. A project célja a Google új Antigravity környezetének és a Gemini 3 Pro model tesztelése. A forráskód dokumentálására elfogyott a Gemini kredit, így azt Sonnet 4.5 thinking model segítségével készítettem. Ezekhez csak promptot írtam méghozzá magyarul, és teszteltem - de a tesztelést is az AI írta le, mit csináljak. Ha valami nem tetszett leírtam emberi mondatokkal, ha hibát kaptam csak bemásoltam. 4 forduló után a kód hibátlanul futott. Itt tartunk most 2025 év végén. Innentől pedig minden betű AI generált.*
 
 # React + PHP User Management Demo
 
