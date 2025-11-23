@@ -1,44 +1,50 @@
-# Implementation Plan - Environment Variables
+# Implementation Plan - Full Project History
 
-The goal is to externalize sensitive configuration (JWT Secret, Database Credentials) into `.env` files for both Frontend and Backend.
+This document outlines the development phases of the React + PHP User Management Application.
 
-## User Review Required
-> [!IMPORTANT]
-> **Frontend Security**: `VITE_JWT_SECRET` will still be exposed in the client-side bundle. This is inherent to the shared-secret architecture requested.
-> **Backend .env**: Ensure the `.env` file is added to `.gitignore` to prevent accidental commit of secrets.
+## Phase 1: Initial Setup & Core Features
+**Goal**: Create a functional full-stack application with user authentication and management.
 
-## Proposed Changes
+### Architecture
+- **Frontend**: React (Vite), Axios, Context API for state management.
+- **Backend**: Native PHP (no framework), PDO for database, REST API structure.
+- **Database**: MySQL with `users` table.
 
-### Frontend
-#### [NEW] [.env](my-app/.env)
-- Add `VITE_JWT_SECRET=SECRET1234567890`
+### Key Features
+- **Authentication**: JWT-based login and registration.
+- **RBAC**: Role-based access control (Admin, Manager, User).
+- **UI**: Modern, responsive design using custom CSS variables.
 
-#### [MODIFY] [jwt.js](my-app/src/utils/jwt.js)
-- Replace hardcoded secret with `import.meta.env.VITE_JWT_SECRET`.
+## Phase 2: Bug Fixes
+**Goal**: Fix visual issues.
+- **CSS**: Added standard `background-clip` property for better browser compatibility.
 
-### Backend
-#### [NEW] [.env](my-app/backend/.env)
-- Add `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`, `JWT_SECRET`.
+## Phase 3: Security Enhancements (JWT Payload Encoding)
+**Goal**: Ensure all communication (request/response bodies) is encoded as JWTs to verify integrity.
 
-#### [NEW] [env_loader.php](my-app/backend/config/env_loader.php)
-- Create a helper to parse `.env` file and populate `$_ENV` or `getenv`.
+### Changes
+#### Frontend
+- **[NEW] `my-app/src/utils/jwt.js`**: Web Crypto API implementation for HS256 signing/verification.
+- **[MODIFY] `my-app/src/utils/api.js`**: Axios interceptors to auto-sign requests and verify responses.
 
-#### [MODIFY] [db.php](my-app/backend/config/db.php)
-- Include `env_loader.php`.
-- Use `getenv()` or `$_ENV` for database credentials.
+#### Backend
+- **[MODIFY] `my-app/backend/utils/jwt_utils.php`**: Added `encodePayload` and `decodePayload` methods.
+- **[MODIFY] `my-app/backend/api/*.php`**: Updated endpoints to handle wrapped payloads `{ payload: "..." }`.
 
-#### [MODIFY] [jwt_utils.php](my-app/backend/utils/jwt_utils.php)
-- Include `../config/env_loader.php` (if not already included via other files, but safe to include).
-- Use `getenv('JWT_SECRET')` for the secret key.
+## Phase 4: Configuration Management
+**Goal**: Externalize sensitive configuration to `.env` files.
 
-## Verification Plan
+### Changes
+#### Frontend
+- **[NEW] `my-app/.env`**: Stores `VITE_JWT_SECRET`.
+- **[MODIFY] `my-app/src/utils/jwt.js`**: Reads secret from `import.meta.env`.
 
-### Manual Verification
-1.  **Frontend**:
-    - Check if `VITE_JWT_SECRET` is correctly loaded (console log or just verify login works).
-2.  **Backend**:
-    - Verify database connection works.
-    - Verify JWT generation and validation works.
-3.  **End-to-End**:
-    - Perform a full login flow.
-    - Perform a user fetch (GET) to verify token validation.
+#### Backend
+- **[NEW] `my-app/backend/.env`**: Stores DB credentials and `JWT_SECRET`.
+- **[NEW] `my-app/backend/config/env_loader.php`**: Custom `.env` parser.
+- **[MODIFY] `my-app/backend/config/db.php`**: Uses environment variables.
+
+## Phase 5: Documentation
+**Goal**: Create comprehensive documentation.
+- **README.md**: Project overview, installation, usage, and AI development info.
+- **_ai_docs/**: Archived development artifacts.
