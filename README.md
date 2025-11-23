@@ -2,6 +2,15 @@
 
 Ez egy demonstrációs alkalmazás, amely bemutatja egy modern full-stack webalkalmazás működését React frontenddel és natív PHP backenddel. A projekt célja a biztonságos kommunikáció és a felhasználókezelés demonstrálása.
 
+## 🤖 AI Fejlesztés
+
+Ez a projekt az **Antigravity** fejlesztői környezetben készült a **Gemini 3 pro** mesterséges intelligencia modell segítségével.
+
+A fejlesztés során keletkezett dokumentációk (implementációs terv, walkthrough, feladatlista) megtalálhatóak az `_ai_docs` mappában:
+- [Implementation Plan](_ai_docs/implementation_plan.md)
+- [Walkthrough](_ai_docs/walkthrough.md)
+- [Task List](_ai_docs/task.md)
+
 ## 🛠 Fejlesztés Menete és Technológiák
 
 A projekt során a következő technológiákat és megoldásokat alkalmaztuk:
@@ -83,3 +92,4 @@ A rendszer előre feltöltött felhasználókkal érkezik a teszteléshez. A jel
 | `user@example.com` | **User** (korlátozott hozzáférés) | `password` |
 
 > **Megjegyzés**: A kommunikáció ellenőrzéséhez nyisd meg a böngésző fejlesztői eszközeit (F12) és figyeld a Network fület. Látni fogod, hogy a kérések és válaszok tartalma JWT tokenekbe van csomagolva (`payload` mező).
+
