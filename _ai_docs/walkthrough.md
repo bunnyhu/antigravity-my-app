@@ -22,6 +22,10 @@ I have implemented JWT encoding for all communication between the frontend and b
     - Decodes incoming request payload from `{ payload: "..." }`.
     - Encodes outgoing responses into `{ payload: "..." }`.
 
+### Database Migration
+- **[NEW] `backend/migrations/migrate.php`**: Script to automatically create the database and tables.
+- **[MODIFY] `backend/migrations/migrations.sql`**: Updated to use `INSERT IGNORE` to prevent duplicate entry errors.
+
 ## Verification
 
 To verify the changes, please perform the following steps:
@@ -40,6 +44,10 @@ To verify the changes, please perform the following steps:
     - Try to login.
     - **Request**: Check the request payload. It should be `{ payload: "..." }`.
     - **Response**: The response should also be a JWT encoded payload.
+
+4.  **Database Migration**:
+    - Run `php backend/migrations/migrate.php`.
+    - **Expected Output**: "Connected to MySQL server successfully", "Database ... created or already exists", "Tables and data migrated successfully".
 
 > [!NOTE]
 > The secret key is now managed via `.env` files. Ensure `VITE_JWT_SECRET` (Frontend) and `JWT_SECRET` (Backend) match.

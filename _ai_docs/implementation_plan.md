@@ -48,3 +48,11 @@ This document outlines the development phases of the React + PHP User Management
 **Goal**: Create comprehensive documentation.
 - **README.md**: Project overview, installation, usage, and AI development info.
 - **_ai_docs/**: Archived development artifacts.
+
+## Phase 6: Database Migration
+**Goal**: Automate database and table creation using environment variables.
+
+### Changes
+#### Backend
+- **[NEW] `my-app/backend/migrations/migrate.php`**: Script to create DB and run SQL migrations.
+- **[MODIFY] `my-app/backend/migrations/migrations.sql`**: Updated `INSERT` statements to `INSERT IGNORE` for idempotency.

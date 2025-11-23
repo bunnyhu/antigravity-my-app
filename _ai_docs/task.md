@@ -34,3 +34,8 @@
 ## Phase 5: Documentation
 - [x] Create README.md with project info and usage guide
 - [x] Archive AI documentation to `_ai_docs` folder
+
+## Phase 6: Database Migration
+- [x] Create migration script (`migrate.php`) to setup DB and tables
+- [x] Update SQL schema for idempotency (`INSERT IGNORE`)
+- [x] Verify migration script execution
