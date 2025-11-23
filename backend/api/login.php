@@ -1,13 +1,18 @@
 <?php
+
 include_once '../config/db.php';
 include_once '../utils/jwt_utils.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
-$data = json_decode(file_get_contents("php://input"));
+$input = json_decode(file_get_contents("php://input"));
+$data = null;
+if (isset($input->payload)) {
+    $data = JWTUtils::decodePayload($input->payload);
+}
 
-if (!empty($data->email) && !empty($data->password)) {
+if ($data && !empty($data->email) && !empty($data->password)) {
     $email = $data->email;
     $password = $data->password;
 
@@ -29,25 +34,27 @@ if (!empty($data->email) && !empty($data->password)) {
             $jwt = JWTUtils::generateToken($token_payload);
 
             http_response_code(200);
-            echo json_encode(array(
-                "message" => "Successful login.",
-                "token" => $jwt,
-                "user" => array(
-                    "id" => $row['id'],
-                    "email" => $row['email'],
-                    "role" => $row['role']
-                )
-            ));
+            echo json_encode([
+                'payload' => JWTUtils::encodePayload(array(
+                    "message" => "Successful login.",
+                    "token" => $jwt,
+                    "user" => array(
+                        "id" => $row['id'],
+                        "email" => $row['email'],
+                        "role" => $row['role']
+                    )
+                ))
+            ]);
         } else {
             http_response_code(401);
-            echo json_encode(array("message" => "Login failed."));
+            echo json_encode(['payload' => JWTUtils::encodePayload(array("message" => "Login failed."))]);
         }
     } else {
         http_response_code(401);
-        echo json_encode(array("message" => "Login failed."));
+        echo json_encode(['payload' => JWTUtils::encodePayload(array("message" => "Login failed."))]);
     }
 } else {
     http_response_code(400);
-    echo json_encode(array("message" => "Incomplete data."));
+    echo json_encode(['payload' => JWTUtils::encodePayload(array("message" => "Incomplete data."))]);
 }
 ?>

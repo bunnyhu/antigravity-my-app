@@ -1,5 +1,5 @@
 
-const SECRET_KEY = "YOUR_SECRET_KEY_CHANGE_ME"; // Must match backend
+const SECRET_KEY = "SECRET1234567890"; // Must match backend
 
 async function importKey(secret) {
     const enc = new TextEncoder();

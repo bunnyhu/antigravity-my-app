@@ -1,7 +1,7 @@
 <?php
 class JWTUtils
 {
-    private static $secret_key = "YOUR_SECRET_KEY_CHANGE_ME"; // In prod, use env var
+    private static $secret_key = "SECRET1234567890"; // In prod, use env var
     private static $algorithm = 'HS256';
 
     public static function generateToken($payload)

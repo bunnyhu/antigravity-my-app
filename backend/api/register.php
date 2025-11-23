@@ -1,13 +1,18 @@
 <?php
+
 include_once '../config/db.php';
 include_once '../utils/jwt_utils.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
-$data = json_decode(file_get_contents("php://input"));
+$input = json_decode(file_get_contents("php://input"));
+$data = null;
+if (isset($input->payload)) {
+    $data = JWTUtils::decodePayload($input->payload);
+}
 
-if (!empty($data->email) && !empty($data->password)) {
+if ($data && !empty($data->email) && !empty($data->password)) {
     $email = $data->email;
     $password = $data->password;
     // Default role is user
@@ -21,7 +26,7 @@ if (!empty($data->email) && !empty($data->password)) {
 
     if ($stmt->rowCount() > 0) {
         http_response_code(400);
-        echo json_encode(array("message" => "User already exists."));
+        echo json_encode(['payload' => JWTUtils::encodePayload(array("message" => "User already exists."))]);
     } else {
         $query = "INSERT INTO users SET email=:email, password_hash=:password, role=:role";
         $stmt = $db->prepare($query);
@@ -34,14 +39,14 @@ if (!empty($data->email) && !empty($data->password)) {
 
         if ($stmt->execute()) {
             http_response_code(201);
-            echo json_encode(array("message" => "User created successfully."));
+            echo json_encode(['payload' => JWTUtils::encodePayload(array("message" => "User created successfully."))]);
         } else {
             http_response_code(503);
-            echo json_encode(array("message" => "Unable to create user."));
+            echo json_encode(['payload' => JWTUtils::encodePayload(array("message" => "Unable to create user."))]);
         }
     }
 } else {
     http_response_code(400);
-    echo json_encode(array("message" => "Incomplete data."));
+    echo json_encode(['payload' => JWTUtils::encodePayload(array("message" => "Incomplete data."))]);
 }
 ?>
