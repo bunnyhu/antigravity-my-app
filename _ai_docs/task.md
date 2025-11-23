@@ -39,3 +39,6 @@
 - [x] Create migration script (`migrate.php`) to setup DB and tables
 - [x] Update SQL schema for idempotency (`INSERT IGNORE`)
 - [x] Verify migration script execution
+
+## Phase 7: Directory Security
+- [x] Create `index.html` in `backend` root and subdirectories to prevent directory listing

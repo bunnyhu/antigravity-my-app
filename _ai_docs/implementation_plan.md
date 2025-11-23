@@ -56,3 +56,10 @@ This document outlines the development phases of the React + PHP User Management
 #### Backend
 - **[NEW] `my-app/backend/migrations/migrate.php`**: Script to create DB and run SQL migrations.
 - **[MODIFY] `my-app/backend/migrations/migrations.sql`**: Updated `INSERT` statements to `INSERT IGNORE` for idempotency.
+
+## Phase 7: Directory Security
+**Goal**: Prevent directory listing in backend folders.
+
+### Changes
+#### Backend
+- **[NEW] `my-app/backend/**/index.html`**: Empty/Warning HTML files in all subdirectories to block access.

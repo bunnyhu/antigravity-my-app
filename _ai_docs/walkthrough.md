@@ -26,6 +26,9 @@ I have implemented JWT encoding for all communication between the frontend and b
 - **[NEW] `backend/migrations/migrate.php`**: Script to automatically create the database and tables.
 - **[MODIFY] `backend/migrations/migrations.sql`**: Updated to use `INSERT IGNORE` to prevent duplicate entry errors.
 
+### Directory Security
+- **[NEW] `backend/**/index.html`**: Added empty/warning HTML files to all backend subdirectories to prevent directory listing.
+
 ## Verification
 
 To verify the changes, please perform the following steps:
@@ -48,6 +51,10 @@ To verify the changes, please perform the following steps:
 4.  **Database Migration**:
     - Run `php backend/migrations/migrate.php`.
     - **Expected Output**: "Connected to MySQL server successfully", "Database ... created or already exists", "Tables and data migrated successfully".
+
+5.  **Directory Security**:
+    - Navigate to `http://localhost:8000/backend/` or `http://localhost:8000/backend/api/` in your browser.
+    - **Expected Output**: You should see an "Access Denied" page instead of a list of files.
 
 > [!NOTE]
 > The secret key is now managed via `.env` files. Ensure `VITE_JWT_SECRET` (Frontend) and `JWT_SECRET` (Backend) match.

@@ -1,6 +1,10 @@
 # Előszó - ez még embertől
 
-*Ez a kód nem tartalmaz semmilyen emberi fejlesztési elemet. Sőt ez a README.md fájl sem, de még ennek a bekezdésnek a tartalmát is néha az AI javasolta. A project célja a Google új Antigravity környezetének és a Gemini 3 Pro model tesztelése. Én csak promptot írtam méghozzá magyarul, és teszteltem - de a tesztelést is az AI írta le, mit csináljak. Ha valami nem tetszett leírtam emberi mondatokkal, ha hibát kaptam csak bemásoltam. 4 forduló után a kód hibátlanul futott. Itt tartunk most 2025 év végén. Innentől pedig minden betű AI generált.*
+*Ez a kód nem tartalmaz semmilyen emberi fejlesztési elemet, beleértve ez a README.md fájlt is és a GIT commitok leírását is, de még ennek a bekezdésnek a tartalmát is néha az AI javasolta.
+
+A project célja a Google új Antigravity környezetének és a Gemini 3 Pro model tesztelése. A forráskód dokumentálására elfogyott a Gemini kredit, így azt Sonnet 4.5 thinking model segítségével készítettem. Ezekhez csak promptot írtam méghozzá magyarul, és teszteltem - de a tesztelést is az AI írta le, mit csináljak. Ha valami nem tetszett leírtam emberi mondatokkal, ha hibát kaptam csak bemásoltam.
+
+4 forduló után a kód hibátlanul futott. Itt tartunk most 2025 év végén. Innentől pedig minden betű AI generált.*
 
 # React + PHP User Management Demo
 
@@ -43,8 +47,12 @@ A projekt során a következő technológiákat és megoldásokat alkalmaztuk:
 - MySQL szerver
 
 ### 1. Adatbázis Beállítása
-1. Hozz létre egy `react_php_auth` nevű adatbázist a MySQL szervereden.
-2. Importáld a `backend/migrations.sql` fájlt az adatbázisba. Ez létrehozza a táblákat és feltölti tesztadatokkal.
+1. Győződj meg róla, hogy a MySQL szerver fut.
+2. Futtasd a migrációs scriptet a gyökérkönyvtárból:
+   ```bash
+   php backend/migrations/migrate.php
+   ```
+   Ez létrehozza az adatbázist (ha nem létezik), a táblákat, és feltölti tesztadatokkal.
 
 ### 2. Backend Beállítása
 1. Lépj a `backend` mappába.
